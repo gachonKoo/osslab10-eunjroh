@@ -1,16 +1,16 @@
-import subprocess
+import sys
 
-def test_divisors_100():
-    # divisors.py를 실행하고 출력값을 얻음
-    result = subprocess.run(["python3", "divisors.py", "100"], capture_output=True, text=True)
-    output = result.stdout.strip()
-    
-    # 예상 출력값
-    expected_output = "1 2 4 5 10 20 25 50 100"
-    
-    # 결과 비교
-    assert output == expected_output, f"Expected '{expected_output}', but got '{output}'"
-    print("test1 passed")
+def find_divisors(n):
+    divisors = []
+    for i in range(1, n + 1):
+        if n % i == 0:
+            divisors.append(i)
+    return divisors
 
 if __name__ == "__main__":
-    test_divisors_100()
+    # 명령줄 인수에서 숫자를 입력받음
+    if len(sys.argv) > 1:
+        number = int(sys.argv[1])
+        divisors = find_divisors(number)
+        # 약수들을 공백으로 구분하여 출력
+        print(" ".join(map(str, divisors)))
